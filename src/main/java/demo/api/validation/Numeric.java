@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
 
 /** */
 @Documented
-@Constraint(validatedBy = DateStringValidator.class)
+@Constraint(validatedBy = NumericValidator.class)
 @Target({ FIELD })
 @Retention(RUNTIME)
-public @interface DateString {
+public @interface Numeric {
   /**
    * @return
    */
@@ -22,13 +22,15 @@ public @interface DateString {
 
   boolean require() default false;
 
-  String format() default "yyyy/MM/dd";
+  boolean negative() default false;
 
-  boolean past() default false;
+  int integer() default 9;
 
-  boolean future() default false;
+  int fraction() default 0;
 
-  boolean now() default false;
+  String max() default "";
+
+  String min() default "";
 
   /**
    * @return

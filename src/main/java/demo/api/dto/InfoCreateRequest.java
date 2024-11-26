@@ -1,6 +1,6 @@
 package demo.api.dto;
 
-import demo.api.validation.DigitString;
+import demo.api.validation.NumericString;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -34,7 +34,7 @@ public class InfoCreateRequest implements Serializable {
    *
    * @mbg.generated
    */
-  @DigitString
+  @NumericString
   private String sex;
 
   /**

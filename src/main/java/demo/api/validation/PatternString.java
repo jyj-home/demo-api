@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
 
 /** */
 @Documented
-@Constraint(validatedBy = DigitStringValidator.class)
+@Constraint(validatedBy = PatternStringValidator.class)
 @Target({ FIELD })
 @Retention(RUNTIME)
-public @interface DigitString {
+public @interface PatternString {
   /**
    * @return
    */

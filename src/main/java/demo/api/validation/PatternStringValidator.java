@@ -10,7 +10,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 
 /** */
-public class DigitStringValidator implements ConstraintValidator<DigitString, String> {
+public class PatternStringValidator implements ConstraintValidator<PatternString, String> {
 
   private static final String REGEX_INTEGER = "^%s\\d{%s}$";
   private static final String REGEX_FLOAT = "^%s%s\\d{%s}(\\.\\d{%s})?$";
@@ -37,7 +37,7 @@ public class DigitStringValidator implements ConstraintValidator<DigitString, St
   private MessageSource messageSource = ApplicationContextProvider.getBean(MessageSource.class);
 
   @Override
-  public void initialize(DigitString constraintAnnotation) {
+  public void initialize(PatternString constraintAnnotation) {
 
     this.message = constraintAnnotation.message();
     this.require = constraintAnnotation.require();
@@ -55,20 +55,12 @@ public class DigitStringValidator implements ConstraintValidator<DigitString, St
     context.disableDefaultConstraintViolation();
 
     if (this.require && value == null) {
-      return false;
+      return setMessage(context, "E001");
     } else if (value == null) {
       return true;
     }
 
-    if (!validDigit(value, context)) {
-      return false;
-    }
-
-    if (!validMaxMin(value, context)) {
-      return false;
-    }
-
-    return true;
+    return validDigit(value, context) && validMaxMin(value, context);
   }
 
   /**
