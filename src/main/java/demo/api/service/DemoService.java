@@ -11,6 +11,7 @@ import demo.api.dto.InfoUpdateRequest;
 import demo.api.dto.InfoUpdateResponse;
 import demo.api.gen.entity.Person;
 import demo.api.logic.DemoLogic;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,8 @@ import org.springframework.stereotype.Service;
 public class DemoService {
 
   /** xxxxxxxxxxxx. */
-  @Autowired DemoLogic demologic;
+  @Autowired
+  DemoLogic demologic;
 
   /**
    * ｘｘｘｘｘｘｘｘｘｘｘｘｘｘ.
@@ -46,7 +48,9 @@ public class DemoService {
    */
   public InfoCreateResponse createInfo(InfoCreateRequest infoCreateRequest) {
     InfoCreateResponse infoCreateResponse = new InfoCreateResponse();
-    infoCreateResponse.setResult(String.format("Hello %s!", infoCreateRequest.getName()));
+    Person person = new Person();
+    BeanUtils.copyProperties(infoCreateRequest, person);
+    demologic.createInfo(person);
     return infoCreateResponse;
   }
 

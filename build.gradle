@@ -36,15 +36,16 @@ dependencies {
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
-//	implementation 'com.opencsv:opencsv:5.9'
 	implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
 	implementation 'org.apache.commons:commons-csv:1.12.0'
 	implementation 'org.apache.commons:commons-lang3:3.17.0'
-	    implementation('commons-beanutils:commons-beanutils:1.9.4') {
-        exclude group: 'commons-logging', module: 'commons-logging'
-    }
 	implementation 'org.apache.commons:commons-collections4:4.5.0-M2'
-	implementation 'commons-validator:commons-validator:1.9.0'
+    implementation('commons-beanutils:commons-beanutils:1.9.4') {
+        exclude group:'commons-logging', module:'commons-logging'
+    }
+    implementation('commons-validator:commons-validator:1.9.0') {
+        exclude group:'commons-logging', module:'commons-logging'
+    }
 }
 
 tasks.named('test') {

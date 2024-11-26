@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /** */
@@ -61,36 +60,17 @@ public class TypeConvUtils {
     return StringUtils.isEmpty(value) ? null : new BigDecimal(value).setScale(scale, roundingMode);
   }
 
-  public static BigDecimal createZeroBigDecimal(
-      String value, int scale, RoundingMode roundingMode) {
-    return StringUtils.isEmpty(value)
-        ? new BigDecimal(0).setScale(scale, roundingMode)
-        : new BigDecimal(value).setScale(scale, roundingMode);
+  public static BigDecimal createZeroBigDecimal(String value, int scale, RoundingMode roundingMode) {
+    return StringUtils.isEmpty(value) ? new BigDecimal(0).setScale(scale, roundingMode)
+	: new BigDecimal(value).setScale(scale, roundingMode);
   }
 
   public static BigDecimal toZeroBigDecimal(BigDecimal value) {
     return value == null ? new BigDecimal(0) : value;
   }
 
-  public static BigDecimal toZeroBigDecimal(
-      BigDecimal value, int scale, RoundingMode roundingMode) {
-    return value == null
-        ? new BigDecimal(0).setScale(scale, roundingMode)
-        : value.setScale(scale, roundingMode);
-  }
-
-  public static <T extends Object> T toNull(T value) {
-    if (ObjectUtils.isEmpty(value)) {
-      return null;
-    }
-
-    if ((value instanceof BigDecimal bigDecimal && new BigDecimal(0).compareTo(bigDecimal) == 0)
-        || (value instanceof Integer integer && 0 == integer)
-        || (value instanceof Long lng && 0 == lng)) {
-      return null;
-    }
-
-    return value;
+  public static BigDecimal toZeroBigDecimal(BigDecimal value, int scale, RoundingMode roundingMode) {
+    return value == null ? new BigDecimal(0).setScale(scale, roundingMode) : value.setScale(scale, roundingMode);
   }
 
   public static String[] toArray(String value) {

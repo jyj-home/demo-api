@@ -8,9 +8,7 @@ public class CheckUtils {
 
   @Getter
   public enum NullCompareMode {
-    SKIP(0),
-    GT(1),
-    LT(-1);
+    SKIP(0), GT(1), LT(-1);
 
     private int value;
 
@@ -23,7 +21,8 @@ public class CheckUtils {
     }
   }
 
-  private CheckUtils() {}
+  private CheckUtils() {
+  }
 
   public static <T> boolean equals(T o1, T o2) {
     return Objects.equals(o1, o2);
@@ -35,79 +34,79 @@ public class CheckUtils {
    * @param o2
    * @return
    */
-  @SuppressWarnings({"unchecked", "rawtypes"})
-  public static <T> int compare(T o1, T o2, NullCompareMode nullCompareMode) {
-    return Objects.compare(
-        o1,
-        o2,
-        (a, b) -> {
-          if (a == null && b == null) {
-            return 0;
-          }
-
-          if (a == null) {
-            return nullCompareMode.getValue();
-          }
-
-          if (b == null) {
-            return nullCompareMode.getReverseValue();
-          }
-
-          if (a instanceof Comparable<?> a1 && b instanceof Comparable<?> b1) {
-            return ObjectUtils.compare((Comparable) a1, (Comparable) b1);
-          }
-
-          return a.toString().compareTo(b.toString());
-        });
+  public static <T extends Comparable<? super T>> int compare(T o1, T o2, NullCompareMode nullCompareMode) {
+    switch (nullCompareMode) {
+    case LT:
+      return ObjectUtils.compare(o1, o2);
+    case GT:
+      return ObjectUtils.compare(o1, o2, true);
+    default:
+      if (o1 == null || o2 == null) {
+	return 0;
+      }
+      return ObjectUtils.compare(o1, o2, true);
+    }
   }
 
-  public static <T> boolean ge(T o1, T o2, NullCompareMode nullCompareMode) {
-    int retVal = compare(o1, o2, nullCompareMode);
-    return retVal == 0 || retVal == 1 || nullCompareMode == NullCompareMode.SKIP;
-  }
-
-  public static <T> boolean le(T o1, T o2, NullCompareMode nullCompareMode) {
-    int retVal = compare(o1, o2, nullCompareMode);
-    return retVal == 0 || retVal == -1 || nullCompareMode == NullCompareMode.SKIP;
-  }
-
-  public static <T> boolean gt(T o1, T o2, NullCompareMode nullCompareMode) {
-    int retVal = compare(o1, o2, nullCompareMode);
-    return retVal == 1 || nullCompareMode == NullCompareMode.SKIP;
-  }
-
-  public static <T> boolean lt(T o1, T o2, NullCompareMode nullCompareMode) {
-    int retVal = compare(o1, o2, nullCompareMode);
-    return retVal == -1 || nullCompareMode == NullCompareMode.SKIP;
-  }
-
-  public static <T> int compare(T o1, T o2) {
+  public static <T extends Comparable<? super T>> int compare(T o1, T o2) {
     return compare(o1, o2, NullCompareMode.LT);
   }
 
-  public static <T> boolean ge(T o1, T o2) {
-    int retVal = compare(o1, o2);
-    return retVal == 0 || retVal == 1;
-  }
-
-  public static <T> boolean le(T o1, T o2) {
-    int retVal = compare(o1, o2);
+  public static <T extends Comparable<? super T>> boolean le(T o1, T o2, NullCompareMode nullCompareMode) {
+    if (skip(o1, o2, nullCompareMode)) {
+      return true;
+    }
+    int retVal = compare(o1, o2, nullCompareMode);
     return retVal == 0 || retVal == -1;
   }
 
-  public static <T> boolean gt(T o1, T o2) {
-    int retVal = compare(o1, o2);
-    return retVal == 1;
+  public static <T extends Comparable<? super T>> boolean ge(T o1, T o2, NullCompareMode nullCompareMode) {
+    if (skip(o1, o2, nullCompareMode)) {
+      return true;
+    }
+    int retVal = compare(o1, o2, nullCompareMode);
+    return retVal == 0 || retVal == 1;
   }
 
-  public static <T> boolean lt(T o1, T o2) {
-    int retVal = compare(o1, o2);
-    return retVal == -1;
+  public static <T extends Comparable<? super T>> boolean lt(T o1, T o2, NullCompareMode nullCompareMode) {
+    if (skip(o1, o2, nullCompareMode)) {
+      return true;
+    }
+    return !ge(o1, o2, nullCompareMode);
   }
 
-  //  public static <T> boolean between(T o1, T o2) {
-  //    ComparableUtils.between(null, null).test(null);
-  //    int retVal = compare(o1, o2);
-  //    return retVal == -1;
-  //  }
+  public static <T extends Comparable<? super T>> boolean gt(T o1, T o2, NullCompareMode nullCompareMode) {
+    if (skip(o1, o2, nullCompareMode)) {
+      return true;
+    }
+    return !le(o1, o2, nullCompareMode);
+  }
+
+  public static <T extends Comparable<? super T>> boolean le(T o1, T o2) {
+    return le(o1, o2, NullCompareMode.LT);
+  }
+
+  public static <T extends Comparable<? super T>> boolean ge(T o1, T o2) {
+    return ge(o1, o2, NullCompareMode.LT);
+  }
+
+  public static <T extends Comparable<? super T>> boolean lt(T o1, T o2) {
+    return !ge(o1, o2);
+  }
+
+  public static <T extends Comparable<? super T>> boolean gt(T o1, T o2) {
+    return !le(o1, o2);
+  }
+
+  private static <T extends Comparable<? super T>> boolean skip(T o1, T o2, NullCompareMode nullCompareMode) {
+    if (nullCompareMode == NullCompareMode.SKIP && (o1 == null || o2 == null)) {
+      return true;
+    }
+    return false;
+  }
+  // public static <T> boolean between(T o1, T o2) {
+  // ComparableUtils.between(null, null).test(null);
+  // int retVal = compare(o1, o2);
+  // return retVal == -1;
+  // }
 }

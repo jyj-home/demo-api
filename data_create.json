@@ -1,0 +1,14 @@
+{
+  "age": "13",
+  "birth": "2024-11-26T08:28:49.467Z",
+  "sex": "string",
+  "salary": 0,
+  "description": "string",
+  "refTimestampZone": "2024-11-26T08:28:49.467Z",
+  "createUser": "string",
+  "createDate": "2024-11-26T08:28:49.467Z",
+  "updateUser": "string",
+  "updateDate": "2024-11-26T08:28:49.467Z",
+  "isActive": true,
+  "isDelete": true
+}

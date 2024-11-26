@@ -7,6 +7,7 @@ import java.math.RoundingMode;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.compare.ComparableUtils;
+import org.apache.commons.validator.GenericValidator;
 
 /**
  * xxxx <br>
@@ -49,21 +50,26 @@ public class TestMain {
       e.printStackTrace();
       System.out.println(e.getMessage());
     }
+    System.out.println("-------------------------------");
+    System.out.println(GenericValidator.isInt("01"));
+    System.out.println("-------------------------------");
+    System.out.println(new BigDecimal("1.e0"));
+    System.out.println("-------------------------------");
+    System.out.println(GenericValidator.isDate("2024/02/28 12:30:45 ", null));
 
-    //    File f = new File("");
+    // File f = new File("");
     //
-    //    try (FileInputStream fis = new FileInputStream(f)) {
-    //      int line = fis.read();
-    //      System.out.println(line);
-    //    }
-    //    Integer a = 0;
-    //    int b = 0;
-    //    System.out.println(a == b);
-    //    System.out.println(a.equals(b));
+    // try (FileInputStream fis = new FileInputStream(f)) {
+    // int line = fis.read();
+    // System.out.println(line);
+    // }
+    // Integer a = 0;
+    // int b = 0;
+    // System.out.println(a == b);
+    // System.out.println(a.equals(b));
   }
 
   public enum EnumTest {
-    GET,
-    POST;
+    GET, POST;
   }
 }

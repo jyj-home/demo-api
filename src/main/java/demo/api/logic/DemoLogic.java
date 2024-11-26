@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 /** xxxxxxxxxxxx. */
 @Component
 public class DemoLogic {
-  @Autowired PersonMapper personMapper;
+  @Autowired
+  PersonMapper personMapper;
 
   /**
    * @param personKey
@@ -30,5 +31,9 @@ public class DemoLogic {
     }
 
     return this.personMapper.selectByExample(personExample);
+  }
+
+  public int createInfo(Person person) {
+    return this.personMapper.insert(person);
   }
 }

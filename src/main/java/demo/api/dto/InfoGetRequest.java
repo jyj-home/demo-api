@@ -1,6 +1,5 @@
 package demo.api.dto;
 
-import demo.api.validation.IntegerString;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import lombok.Data;
@@ -13,10 +12,10 @@ public class InfoGetRequest implements Serializable {
   private String personId;
 
   /** XXXXXXXXXXXXX. */
-  //  @NotEmpty
+  // @NotEmpty
   @Size(max = 10)
   private String name;
 
   /** XXXXXXXXXXXXX. */
-  @IntegerString private String age;
+  private String age;
 }
