@@ -51,6 +51,7 @@ public class DemoService {
     Person person = new Person();
     BeanUtils.copyProperties(infoCreateRequest, person);
     demologic.createInfo(person);
+    infoCreateResponse.setResult("xxx");
     return infoCreateResponse;
   }
 

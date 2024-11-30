@@ -30,6 +30,8 @@ public @interface DateString {
 
   boolean now() default false;
 
+  boolean inclusive() default true;
+
   /**
    * @return
    */

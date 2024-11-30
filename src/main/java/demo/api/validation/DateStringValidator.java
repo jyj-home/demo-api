@@ -1,9 +1,9 @@
 package demo.api.validation;
 
 import demo.api.ApplicationContextProvider;
+import demo.api.utils.CheckUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -27,6 +27,8 @@ public class DateStringValidator implements ConstraintValidator<DateString, Stri
 
   private boolean now;
 
+  private boolean inclusive;
+
   private MessageSource messageSource = ApplicationContextProvider.getBean(MessageSource.class);
 
   @Override
@@ -38,6 +40,7 @@ public class DateStringValidator implements ConstraintValidator<DateString, Stri
     this.past = constraintAnnotation.past();
     this.future = constraintAnnotation.future();
     this.now = constraintAnnotation.now();
+    this.inclusive = constraintAnnotation.inclusive();
   }
 
   @Override
@@ -50,17 +53,17 @@ public class DateStringValidator implements ConstraintValidator<DateString, Stri
       return true;
     }
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat(this.format);
-    try {
-      dateFormat.parse(value);
-    } catch (ParseException e) {
-      return setMessage(context, "E101", this.format);
+    if (!CheckUtils.isDate(value, this.format)) {
+      return setMessage(context, "E101");
     }
 
+    SimpleDateFormat dateFormat = new SimpleDateFormat(this.format);
     Date date = new Date();
-    if (past && value.compareTo(dateFormat.format(date)) >= 0) {
+    if (past && ((inclusive && value.compareTo(dateFormat.format(date)) > 0)
+	|| (!inclusive && value.compareTo(dateFormat.format(date)) >= 0))) {
       return setMessage(context, "E102");
-    } else if (future && value.compareTo(dateFormat.format(date)) <= 0) {
+    } else if (future && ((inclusive && value.compareTo(dateFormat.format(date)) < 0)
+	|| (!inclusive && value.compareTo(dateFormat.format(date)) <= 0))) {
       return setMessage(context, "E103");
     } else if (now && value.compareTo(dateFormat.format(date)) != 0) {
       return setMessage(context, "E104");

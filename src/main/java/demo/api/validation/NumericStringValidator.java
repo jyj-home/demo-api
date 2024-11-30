@@ -24,6 +24,8 @@ public class NumericStringValidator implements ConstraintValidator<NumericString
 
   private boolean require;
 
+  private boolean positive;
+
   private boolean negative;
 
   private int integer;
@@ -41,6 +43,7 @@ public class NumericStringValidator implements ConstraintValidator<NumericString
 
     this.message = constraintAnnotation.message();
     this.require = constraintAnnotation.require();
+    this.positive = constraintAnnotation.positive();
     this.negative = constraintAnnotation.require();
     this.integer = Math.abs(constraintAnnotation.integer());
     this.fraction = Math.abs(constraintAnnotation.fraction());
@@ -118,7 +121,7 @@ public class NumericStringValidator implements ConstraintValidator<NumericString
     } else {
       msg = messageId + MSG_SEPARATOR + msg;
     }
-    context.buildConstraintViolationWithTemplate(msg);
+    context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
     return false;
   }
 }

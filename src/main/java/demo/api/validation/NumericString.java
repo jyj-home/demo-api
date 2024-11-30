@@ -22,6 +22,8 @@ public @interface NumericString {
 
   boolean require() default false;
 
+  boolean positive() default true;
+
   boolean negative() default false;
 
   int integer() default 9;

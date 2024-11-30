@@ -1,14 +1,16 @@
 {
-  "age": "13",
-  "birth": "2024-11-26T08:28:49.467Z",
-  "sex": "string",
+  "personId": "006",
+  "name": "小王",
+  "age": 10,
+  "birth": "2024-11-30T06:24:49.734Z",
+  "sex": "1",
   "salary": 0,
   "description": "string",
-  "refTimestampZone": "2024-11-26T08:28:49.467Z",
-  "createUser": "string",
-  "createDate": "2024-11-26T08:28:49.467Z",
-  "updateUser": "string",
-  "updateDate": "2024-11-26T08:28:49.467Z",
+  "refTimestampZone": "2024-11-30T06:24:49.734Z",
+  "createUser": "user001",
+  "createDate": "2024-11-30T06:24:49.734Z",
+  "updateUser": "user001",
+  "updateDate": "2024-11-30T06:24:49.734Z",
   "isActive": true,
-  "isDelete": true
+  "isDelete": false
 }
