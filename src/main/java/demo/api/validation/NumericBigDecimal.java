@@ -11,18 +11,28 @@ import java.lang.annotation.Target;
 
 /** */
 @Documented
-@Constraint(validatedBy = PatternStringValidator.class)
+@Constraint(validatedBy = NumericBigDecimalValidator.class)
 @Target({ FIELD })
 @Retention(RUNTIME)
-public @interface PatternString {
+public @interface NumericBigDecimal {
   /**
    * @return
    */
-  String message() default "メッセージが見つかりません。";
+//  String message() default "メッセージが見つかりません。";
 
   boolean require() default false;
 
-  String regex() default ".*";
+  boolean positive() default false;
+
+  boolean negative() default false;
+
+  int integer() default 9;
+
+  int fraction() default 0;
+
+  String max() default "";
+
+  String min() default "";
 
   /**
    * @return

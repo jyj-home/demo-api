@@ -17,9 +17,6 @@ public class CheckUtils {
   private static final String REGEX_INTEGER = "^[-+]?\\d+$";
   private static final String REGEX_INTEGER_POSITIVE = "^[+]?\\d+$";
   private static final String REGEX_INTEGER_NEGATIVE = "^[-]\\d+$";
-  private static final String REGEX_FLOAT = "^[-+]?\\d+\\.\\d+$";
-  private static final String REGEX_FLOAT_POSITIVE = "^[+]?\\d+\\.\\d+$";
-  private static final String REGEX_FLOAT_NEGATIVE = "^[-]\\d+\\.\\d+$";
   private static final String REGEX_NUMERIC_INTEGER = "^\\d+";
   private static final String REGEX_NUMERIC_FRACTION = "\\.(\\d+)$";
 
@@ -151,27 +148,6 @@ public class CheckUtils {
       return true;
     }
     return Pattern.matches(REGEX_INTEGER_NEGATIVE, value);
-  }
-
-  public static boolean isFloat(String value) {
-    if (value == null) {
-      return true;
-    }
-    return Pattern.matches(REGEX_FLOAT, value);
-  }
-
-  public static boolean isFloatPositive(String value) {
-    if (value == null) {
-      return true;
-    }
-    return Pattern.matches(REGEX_FLOAT_POSITIVE, value);
-  }
-
-  public static boolean isFloatNegative(String value) {
-    if (value == null) {
-      return true;
-    }
-    return Pattern.matches(REGEX_FLOAT_NEGATIVE, value);
   }
 
   public static boolean checkLengthInteger(BigDecimal value, int length) {

@@ -11,13 +11,11 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 
 /** */
-public class DateStringValidator implements ConstraintValidator<DateString, String> {
+public class DateStringValidator extends GenericNotNullValidator implements ConstraintValidator<DateString, String> {
 
   private static final String MSG_SEPARATOR = "：";
 
   private String message;
-
-  private boolean require;
 
   private String format;
 
@@ -45,11 +43,13 @@ public class DateStringValidator implements ConstraintValidator<DateString, Stri
 
   @Override
   public boolean isValid(String value, ConstraintValidatorContext context) {
-    context.disableDefaultConstraintViolation();
 
-    if (this.require && value == null) {
-      return setMessage(context, "E001");
-    } else if (value == null) {
+    if (super.validRequire(value)) {
+      this.message = super.message;
+      return false;
+    }
+
+    if (value == null) {
       return true;
     }
 

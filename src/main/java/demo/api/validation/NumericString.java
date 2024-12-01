@@ -18,11 +18,11 @@ public @interface NumericString {
   /**
    * @return
    */
-  String message() default "メッセージが見つかりません。";
+//  String message() default "メッセージが見つかりません。";
 
   boolean require() default false;
 
-  boolean positive() default true;
+  boolean positive() default false;
 
   boolean negative() default false;
 

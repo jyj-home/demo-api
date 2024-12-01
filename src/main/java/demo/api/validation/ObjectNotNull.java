@@ -11,18 +11,14 @@ import java.lang.annotation.Target;
 
 /** */
 @Documented
-@Constraint(validatedBy = PatternStringValidator.class)
+@Constraint(validatedBy = ObjectNotNullValidator.class)
 @Target({ FIELD })
 @Retention(RUNTIME)
-public @interface PatternString {
+public @interface ObjectNotNull {
   /**
    * @return
    */
   String message() default "メッセージが見つかりません。";
-
-  boolean require() default false;
-
-  String regex() default ".*";
 
   /**
    * @return

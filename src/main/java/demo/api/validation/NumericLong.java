@@ -11,22 +11,22 @@ import java.lang.annotation.Target;
 
 /** */
 @Documented
-@Constraint(validatedBy = NumericValidator.class)
+@Constraint(validatedBy = NumericLongValidator.class)
 @Target({ FIELD })
 @Retention(RUNTIME)
-public @interface Numeric {
+public @interface NumericLong {
   /**
    * @return
    */
-  String message() default "メッセージが見つかりません。";
+//  String message() default "メッセージが見つかりません。";
 
   boolean require() default false;
+
+  boolean positive() default false;
 
   boolean negative() default false;
 
   int integer() default 9;
-
-  int fraction() default 0;
 
   String max() default "";
 

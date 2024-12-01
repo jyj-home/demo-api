@@ -3,12 +3,14 @@ package demo.api.validation;
 import demo.api.utils.TypeConvUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import java.math.BigDecimal;
 
 /** */
-public class NumericStringValidator extends GenericNumericValidator implements ConstraintValidator<NumericString, String> {
+public class NumericBigDecimalValidator extends GenericNumericValidator
+    implements ConstraintValidator<NumericBigDecimal, BigDecimal> {
 
   @Override
-  public void initialize(NumericString constraintAnnotation) {
+  public void initialize(NumericBigDecimal constraintAnnotation) {
 
     this.require = constraintAnnotation.require();
     this.positive = constraintAnnotation.positive();
@@ -20,7 +22,7 @@ public class NumericStringValidator extends GenericNumericValidator implements C
   }
 
   @Override
-  public boolean isValid(String value, ConstraintValidatorContext context) {
-    return super.valid(value);
+  public boolean isValid(BigDecimal value, ConstraintValidatorContext context) {
+    return super.valid(value == null ? null : value.toString());
   }
 }
