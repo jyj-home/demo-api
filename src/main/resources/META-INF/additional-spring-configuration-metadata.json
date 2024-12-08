@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "spring.http.client.connect-timeout",
+    "type": "java.lang.Integer",
+    "description": "A description for 'spring.http.client.connect-timeout'"
+  },
+  {
+    "name": "spring.http.client.response-timeout",
+    "type": "java.lang.Integer",
+    "description": "A description for 'spring.http.client.response-timeout'"
+  },
+  {
+    "name": "spring.http.client.pool.max-connections",
+    "type": "java.lang.Integer",
+    "description": "A description for 'spring.http.client.pool.max-connections'"
+  },
+  {
+    "name": "spring.http.client.connection-request-timeout",
+    "type": "java.lang.Integer",
+    "description": "A description for 'spring.http.client.connection-request-timeout'"
+  },
+  {
+    "name": "spring.http.client.pool.max-connections-per-route",
+    "type": "java.lang.Integer",
+    "description": "A description for 'spring.http.client.pool.max-connections-per-route'"
+  }
+]}
