@@ -47,6 +47,7 @@ dependencies {
         exclude group:'commons-logging', module:'commons-logging'
     }
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.3.1'
+    developmentOnly 'org.mybatis.generator:mybatis-generator-core:1.4.0'
 }
 
 tasks.named('test') {

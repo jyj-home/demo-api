@@ -3,9 +3,8 @@ package demo.api;
 import demo.api.utils.CustomEncryptionUtil;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class CustomDataSourceConfig {
   @Value("${spring.datasource.password}")
   private String encryptedPassword;

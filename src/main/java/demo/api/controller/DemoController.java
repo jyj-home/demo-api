@@ -10,6 +10,7 @@ import demo.api.dto.InfoGetResponse;
 import demo.api.dto.InfoUpdateRequest;
 import demo.api.dto.InfoUpdateResponse;
 import demo.api.service.DemoService;
+import demo.api.service.MyDbTestService;
 import java.io.FileInputStream;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class DemoController {
   /** xxxxxxxxxxxx. */
   @Autowired
   DemoService demoService;
+
+  @Autowired
+  MyDbTestService myDbTestService;
 
 //  @Autowired
 //  RestTemplate RestTemplate;
@@ -78,7 +82,12 @@ public class DemoController {
    */
   @PutMapping("/info")
   public ResponseEntity<InfoCreateResponse> createInfo(@Validated @RequestBody InfoCreateRequest infoCreateRequest) {
-    return ResponseEntity.ok(this.demoService.createInfo(infoCreateRequest));
+
+    myDbTestService.operateDs1();
+    myDbTestService.operateDs2();
+    myDbTestService.operateBoth();
+    return null;
+//    return ResponseEntity.ok(this.demoService.createInfo(infoCreateRequest));
   }
 
   /**

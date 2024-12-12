@@ -1,0 +1,51 @@
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- MyBatis3Simple风格 -->
+	<context id="simple" targetRuntime="MyBatis3">
+
+		<property name="defaultModelType" value="flat" />
+		<property name="javaFileEncoding" value="UTF-8" />
+
+		<!--生成mapper.xml时覆盖原文件 -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+		<plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin" />
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+		<!-- <plugin type="org.mybatis.generator.plugins.MapperConfigPlugin"> -->
+		<!-- <property name="targetProject" value="mybatis/src/main/resources" /> -->
+		<!-- <property name="targetPackage" value="com.example.mapper" /> -->
+		<!-- <property name="suppressDate" value="true" /> -->
+		<!-- </plugin> -->
+
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否。 自动生成注释太啰嗦，可以编码扩展CommentGenerator -->
+			<property name="suppressAllComments" value="false" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<!-- 数据库连接 -->
+		<jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://192.168.3.100:5432/db002" userId="db_user002" password="db_user002">
+			<!-- 设置为true就只读取db_book下的表, 否则会优先读取到mysql的user表 -->
+			<property name="nullCatalogMeansCurrent" value="true" />
+		</jdbcConnection>
+
+		<!-- 生成PO的包名和位置 -->
+		<javaModelGenerator targetPackage="demo.api.gen2.entity" targetProject="mybatis/src/main/java">
+			<!-- <property name="rootClass" value="demo.api.gen2.BaseEntity" /> -->
+		</javaModelGenerator>
+
+		<!-- 生成XML映射文件的包名和位置 -->
+		<sqlMapGenerator targetPackage="demo.api.gen2.repository" targetProject="mybatis/src/main/resources" />
+
+		<!-- 生成Mapper接口的包名和位置 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="demo.api.gen2.repository" targetProject="mybatis/src/main/java" />
+
+		<!-- 要生成对应表配置 -->
+		<!-- <table tableName="person" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false" 
+			/> <table tableName="school" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByExampleQueryId="false" /> -->
+		<table tableName="users"/>
+	</context>
+</generatorConfiguration>
