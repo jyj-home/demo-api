@@ -97,8 +97,11 @@ public class DemoController {
    * @return InfoUpdateResponse yyyy
    */
   @PostMapping("/info")
-  public ResponseEntity<InfoUpdateResponse> updateInfo(@Validated @RequestBody InfoUpdateRequest infoUpdateRequest) {
-    return ResponseEntity.ok(this.demoService.updateInfo(infoUpdateRequest));
+  public ResponseEntity<InfoUpdateResponse> updateInfo(@Validated @RequestBody InfoUpdateRequest infoUpdateRequest)
+      throws Exception {
+    myDbTestService.operateCreateBoth();
+    return null;
+//    return ResponseEntity.ok(this.demoService.updateInfo(infoUpdateRequest));
   }
 
   /**

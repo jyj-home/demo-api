@@ -2,6 +2,7 @@ package demo.api;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -20,15 +21,15 @@ public class TransactionConfig {
   private DataSource ds2DataSource;
 
   // 第一个数据源的事务管理器
-  @Bean("ds1TransactionManager")
   @Primary
-  public PlatformTransactionManager transactionManager1() {
-    return new DataSourceTransactionManager(ds1DataSource);
+  @Bean("ds1TransactionManager")
+  public PlatformTransactionManager transactionManager1(@Qualifier("ds1DataSource") DataSource dataSource) {
+    return new DataSourceTransactionManager(dataSource);
   }
 
   // 第二个数据源的事务管理器
   @Bean("ds2TransactionManager")
-  public PlatformTransactionManager transactionManager2() {
-    return new DataSourceTransactionManager(ds2DataSource);
+  public PlatformTransactionManager transactionManager2(@Qualifier("ds2DataSource") DataSource dataSource) {
+    return new DataSourceTransactionManager(dataSource);
   }
 }

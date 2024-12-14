@@ -49,4 +49,34 @@ public class MyDbTestService {
     Users users = operateDs2();
     // 这里可以添加更多业务逻辑，对获取到的数据进行处理等
   }
+
+//  @Transactional(transactionManager = "ds1TransactionManager")
+  public int operateCreateDs1() {
+    Person person = new Person();
+    person.setPersonId("001");
+    person.setName("小李");
+    person.setAge(50);
+
+    int cnt = personMapper.updateByPrimaryKeySelective(person);
+    System.out.println(cnt);
+    return cnt;
+  }
+
+//  @Transactional(transactionManager = "ds2TransactionManager")
+  public int operateCreateDs2() {
+    Users users = new Users();
+    users.setId(1);
+    users.setName("ff");
+    int cnt = usersMapper.updateByPrimaryKeySelective(users);
+    System.out.println(cnt);
+    return cnt;
+  }
+
+  @Transactional
+  public void operateCreateBoth() throws Exception {
+    operateCreateDs1();
+    operateCreateDs2();
+//    throw new RuntimeException("xxx");
+    // 这里可以添加更多业务逻辑，对获取到的数据进行处理等
+  }
 }

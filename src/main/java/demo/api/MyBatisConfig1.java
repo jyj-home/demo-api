@@ -8,7 +8,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 @Configuration
 @MapperScan(basePackages = "demo.api.gen.repository", sqlSessionFactoryRef = "ds1SqlSessionFactory")
@@ -18,8 +17,8 @@ public class MyBatisConfig1 {
   public SqlSessionFactory sqlSessionFactory(@Qualifier("ds1DataSource") DataSource dataSource) throws Exception {
     SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
     bean.setDataSource(dataSource);
-    bean.setMapperLocations(
-	new PathMatchingResourcePatternResolver().getResources("classpath:demo/api/gen/repository/*.xml"));
+//    bean.setMapperLocations(
+//	new PathMatchingResourcePatternResolver().getResources("classpath:demo/api/gen/repository/*.xml"));
     return bean.getObject();
   }
 
