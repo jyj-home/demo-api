@@ -1,5 +1,8 @@
 package demo.api.service;
 
+import demo.api.ChainedTransactional;
+import demo.api.Ds1Transactional;
+import demo.api.Ds2Transactional;
 import demo.api.gen.entity.Person;
 import demo.api.gen.entity.PersonKey;
 import demo.api.gen.repository.PersonMapper;
@@ -50,31 +53,30 @@ public class MyDbTestService {
     // 这里可以添加更多业务逻辑，对获取到的数据进行处理等
   }
 
-  @Transactional(transactionManager = "ds1TransactionManager")
-  public int operateCreateDs1() {
+  @Ds1Transactional
+  public void operateCreateDs1() {
     Person person = new Person();
     person.setPersonId("001");
     person.setName("小李");
-    person.setAge(80);
+    person.setAge(103);
 
     int cnt = personMapper.updateByPrimaryKeySelective(person);
     System.out.println(cnt);
-    return cnt;
+//    return cnt;
   }
 
-  @Transactional(transactionManager = "ds2TransactionManager")
+  @Ds2Transactional
   public void operateCreateDs2() {
     Users users = new Users();
     users.setId(1);
-    users.setName("hh");
+    users.setName("jj");
     int cnt = usersMapper.updateByPrimaryKeySelective(users);
     System.out.println(cnt);
   }
 
-  @Transactional(transactionManager = "chainedTransactionManager")
+  @ChainedTransactional
   public void operateCreateBoth() throws Exception {
     operateCreateDs2();
-
     operateCreateDs1();
 //    throw new RuntimeException("xxx");
     // 这里可以添加更多业务逻辑，对获取到的数据进行处理等
