@@ -13,10 +13,10 @@ public class CheckUtils {
 
   private static final String REGEX_NUMERIC = "^[-+]?\\d+(\\.\\d+)?$";
   private static final String REGEX_NUMERIC_POSITIVE = "^[+]?\\d+(\\.\\d+)?$";
-  private static final String REGEX_NUMERIC_NEGATIVE = "^[-]\\d+(\\.\\d+)?$";
+  private static final String REGEX_NUMERIC_NEGATIVE = "^(\\-\\d+|0)(\\.\\d+)?$";
   private static final String REGEX_INTEGER = "^[-+]?\\d+$";
   private static final String REGEX_INTEGER_POSITIVE = "^[+]?\\d+$";
-  private static final String REGEX_INTEGER_NEGATIVE = "^[-]\\d+$";
+  private static final String REGEX_INTEGER_NEGATIVE = "^(\\-\\d+|0)$";
   private static final String REGEX_NUMERIC_INTEGER = "^\\d+";
   private static final String REGEX_NUMERIC_FRACTION = "\\.(\\d+)$";
 

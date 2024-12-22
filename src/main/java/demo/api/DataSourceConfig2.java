@@ -1,10 +1,9 @@
 package demo.api;
 
-import com.zaxxer.hikari.HikariDataSource;
-import java.sql.SQLException;
 import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -13,9 +12,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class DataSourceConfig2 {
 
+  // 配置数据源2属性读取
+  @Bean("ds2DataSourceProperties")
+  @ConfigurationProperties(prefix = "spring.datasource.ds2")
+  public DataSourceProperties dataSource1Properties() {
+    return new DataSourceProperties();
+  }
+
   @Bean("ds2DataSource")
   @ConfigurationProperties(prefix = "spring.datasource.ds2.hikari")
-  public DataSource dataSource2() throws SQLException {
+  public DataSource dataSource2(@Qualifier("ds2DataSourceProperties") DataSourceProperties dataSourceProperties) {
 //    HikariConfig hikariConfig = new HikariConfig();hikariConfig.
 //    // 根据配置属性设置参数，此处可以添加更多自定义逻辑
 //    hikariConfig.setJdbcUrl("jdbc:postgresql://192.168.3.100:5432/db001");
@@ -25,6 +31,6 @@ public class DataSourceConfig2 {
 //    hikariConfig.setConnectionTimeout(30000);
 //    hikariConfig.setMaximumPoolSize(10);
 //    hikariConfig.setMinimumIdle(5);
-    return DataSourceBuilder.create().type(HikariDataSource.class).build();
+    return dataSourceProperties.initializeDataSourceBuilder().build();
   }
 }

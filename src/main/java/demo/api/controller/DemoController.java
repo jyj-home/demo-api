@@ -13,6 +13,7 @@ import demo.api.service.DemoService;
 import demo.api.service.MyDbTestService;
 import java.io.FileInputStream;
 import java.io.IOException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -31,6 +32,7 @@ import org.springframework.web.client.RestTemplate;
 /** XXXXXXXXXXXXX. */
 @RestController
 @Validated
+@Slf4j
 public class DemoController {
 
   /** xxxxxxxxxxxx. */
