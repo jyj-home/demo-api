@@ -9,11 +9,13 @@ import demo.api.dto.InfoGetRequest;
 import demo.api.dto.InfoGetResponse;
 import demo.api.dto.InfoUpdateRequest;
 import demo.api.dto.InfoUpdateResponse;
+import demo.api.log.CustomSlf4j;
 import demo.api.service.DemoService;
 import demo.api.service.MyDbTestService;
 import java.io.FileInputStream;
 import java.io.IOException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -32,7 +34,7 @@ import org.springframework.web.client.RestTemplate;
 /** XXXXXXXXXXXXX. */
 @RestController
 @Validated
-@Slf4j
+@CustomSlf4j
 public class DemoController {
 
   /** xxxxxxxxxxxx. */
@@ -41,6 +43,12 @@ public class DemoController {
 
   @Autowired
   MyDbTestService myDbTestService;
+
+  private static final Marker FATAL = MarkerFactory.getMarker("FATAL");
+  private static final demo.api.log.CustomLogger logger = demo.api.log.CustomLoggerFactory
+      .getLogger(DemoController.class);
+
+//  private static final CustomLogger customLogger = CustomLoggerFactory.getLogger(DemoController.class);
 
 //  @Autowired
 //  RestTemplate RestTemplate;
@@ -53,6 +61,9 @@ public class DemoController {
    */
   @GetMapping("/info")
   public ResponseEntity<InfoGetResponse> getInfo(@Validated @ModelAttribute InfoGetRequest infoGetRequest) {
+
+//    customLogger.error("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+//    customLogger.error(FATAL, "yyyyyyyyyyyyyyyyyyyyyyyyyy");
     ObjectMapper om = new ObjectMapper();
     InfoCreateRequest infoCreateRequest = null;
     try {

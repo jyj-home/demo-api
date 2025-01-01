@@ -49,8 +49,31 @@ dependencies {
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.3.1'
     developmentOnly 'org.mybatis.generator:mybatis-generator-core:1.4.0'
     implementation 'org.springframework.data:spring-data-commons:3.4.1'
+    implementation 'org.javassist:javassist:3.29.2-GA'
+    annotationProcessor 'org.javassist:javassist:3.29.2-GA'
+//        implementation 'com.squareup:javapoet:1.13.0'
+//        annotationProcessor 'com.squareup:javapoet:1.13.0'
+//    annotationProcessor project(':your-project') // 当前项目的注解处理器
+    annotationProcessor files('bin/main') // 当前项目的注解处理器
+//    annotationProcessor project(':')
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.withType(JavaCompile) {
+options.compilerArgs += ["-XprintProcessorInfo", "-XprintRounds"]
+    options.compilerArgs += "-verbose"
+options.annotationProcessorPath = configurations.annotationProcessor
+//    options.annotationProcessorPath = files('bin/main')
+//    options.compilerArgs += ['-processor', 'demo.api.log.CustomSlf4jProcessor']
+}
+
+//task listAnnotationProcessors {
+//    doLast {
+//        def processors = configurations.annotationProcessor
+//        println "Annotation Processors:"
+//        processors.each { println it.name }
+//    }
+//}
